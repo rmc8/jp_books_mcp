@@ -1,14 +1,26 @@
 """FastMCP server exposing Japanese Books operations as MCP tools."""
 
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 import json
 
 from mcp.server.fastmcp import FastMCP
 
 from jp_books_mcp.client import BooksOrJpClient
 
-# Initialise the FastMCP server instance.
-mcp = FastMCP("jp_books")
-client = BooksOrJpClient()
+
+@asynccontextmanager
+async def lifespan(_server: FastMCP) -> AsyncIterator[BooksOrJpClient]:
+    """Manage the lifecycle of the HTTP client."""
+    client = BooksOrJpClient()
+    try:
+        yield client
+    finally:
+        await client.close()
+
+
+# Initialise the FastMCP server instance with lifespan management.
+mcp = FastMCP("jp_books", lifespan=lifespan)
 
 
 @mcp.tool()
@@ -25,6 +37,7 @@ async def jp_books_search(query: str) -> str:
         return json.dumps([])
 
     try:
+        client: BooksOrJpClient = mcp.get_context().request_context.lifespan_context
         results = await client.search_books(query)
         # Serialize list of Pydantic models
         return json.dumps(
@@ -50,6 +63,7 @@ async def ndl_books_search(query: str) -> str:
         return json.dumps([])
 
     try:
+        client: BooksOrJpClient = mcp.get_context().request_context.lifespan_context
         results = await client.ndl_search_books(query)
         # Serialize list of Pydantic models
         return json.dumps(
@@ -76,6 +90,7 @@ async def jp_books_get_details(isbn: str) -> str:
         return json.dumps({"error": "ISBN or URL cannot be empty"})
 
     try:
+        client: BooksOrJpClient = mcp.get_context().request_context.lifespan_context
         details = await client.get_book_details(isbn)
         # Serialize Pydantic model
         return json.dumps(details.model_dump(), indent=2, ensure_ascii=False)
@@ -83,12 +98,6 @@ async def jp_books_get_details(isbn: str) -> str:
         return json.dumps(
             {"error": f"Failed to get book details: {e}"}, ensure_ascii=False
         )
-
-
-@mcp.shutdown()
-async def shutdown() -> None:
-    """Shutdown event handler to close the HTTP client resources."""
-    await client.close()
 
 
 def main() -> None:
