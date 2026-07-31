@@ -1,6 +1,6 @@
 [project]
 name = "jp-books-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "Model Context Protocol (MCP) server for Japanese Books"
 readme = "README.md"
 authors = [
@@ -10,7 +10,7 @@ requires-python = ">=3.14"
 dependencies = [
     "beautifulsoup4>=4.15.0",
     "httpx>=0.28.1",
-    "mcp>=1.27.2",
+    "mcp>=1.2.0",
     "pydantic>=2.13.4",
 ]
 
