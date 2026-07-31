@@ -1,6 +1,6 @@
 [project]
 name = "jp-books-mcp"
-version = "0.1.3"
+version = "0.1.4"
 description = "Model Context Protocol (MCP) server for Japanese Books"
 readme = "README.md"
 authors = [
