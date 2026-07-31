@@ -271,7 +271,7 @@ wheels = [
 
 [[package]]
 name = "jp-books-mcp"
-version = "0.1.0"
+version = "0.1.2"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
@@ -292,7 +292,7 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.15.0" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "mcp", specifier = ">=1.27.2" },
+    { name = "mcp", specifier = ">=1.2.0" },
     { name = "pydantic", specifier = ">=2.13.4" },
 ]
 
