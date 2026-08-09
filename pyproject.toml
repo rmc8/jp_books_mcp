@@ -1,12 +1,12 @@
 [project]
 name = "jp-books-mcp"
-version = "0.1.4"
+version = "0.1.5"
 description = "Model Context Protocol (MCP) server for Japanese Books"
 readme = "README.md"
 authors = [
     { name = "rmc8" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
     "beautifulsoup4>=4.15.0",
     "httpx>=0.28.1",

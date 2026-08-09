@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """HTTP Client for books.or.jp and NDL Search scraping."""
 
 import re
