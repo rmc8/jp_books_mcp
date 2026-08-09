@@ -1,5 +1,7 @@
 # Japanese Books MCP Server (`jp-books-mcp`)
 
+<!-- mcp-name: io.github.rmc8/jp-books-mcp -->
+
 [![PyPI version](https://img.shields.io/pypi/v/jp-books-mcp.svg)](https://pypi.org/project/jp-books-mcp/)
 [![Python Version](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/)
 
